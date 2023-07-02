@@ -18,6 +18,7 @@
 				"emulator": "0ae53cb6e3f42a79"
 			}
 		},
+		"Flower": "./cadence/contracts/flower/Flower.cdc",
 		"FungibleToken": {
 			"source": "",
 			"aliases": {
