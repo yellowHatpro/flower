@@ -1,4 +1,5 @@
 {
+
 	"contracts": {
 		"Flower": "./cadence/contracts/flower/Flower.cdc"
   },
@@ -8,9 +9,9 @@
 		"testnet": "access.devnet.nodes.onflow.org:9000"
 	},
 	"accounts": {
-		"emulator-account": {
-			"address": "f8d6e0586b0a20c7",
-			"key": "6d12eebfef9866c9b6fa92b97c6e705c26a1785b1e7944da701fc545a51d4673"
+    	"emulator-account": {
+			  "address": "f8d6e0586b0a20c7",
+			  "key": "94f3b2e57f3333a1a0d79ec8b28c9ec1d79c4feffdf454d01adc44ce04e4d1f1"
 		},
       "testnet-account" : {
         "address" : "0xe10794baf72e2b06",
@@ -19,11 +20,15 @@
       "index": 0,
       "signatureAlgorithm": "ECDSA_P256",
       "hashAlgorithm": "SHA3_256",
-        "privateKey":" $privateKey"
+        "privateKey":"$privateKey"
         }
       }
 	},
 	"deployments": {
+    "emulator" : {
+      "emulator-account" : ["Flower"]
+    }
+    ,
 		"testnet": {
 			"testnet-account": [ 
 				"Flower"
