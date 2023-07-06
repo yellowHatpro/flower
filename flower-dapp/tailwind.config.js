@@ -12,6 +12,13 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      colors : {
+        'catppuccin_blue1': '#1D1D2D',
+        'catppuccin_blue2': '#171725',
+        'catppuccin_blue3': '#151623',
+        'catppuccin_blue4': '#11111C',
+        'catppuccin_blue5': '#10111D',
+      }
     },
   },
   plugins: [],

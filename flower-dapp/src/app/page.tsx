@@ -2,7 +2,7 @@
 import * as fcl from "@onflow/fcl";
 import Navbar from "./navbar";
 import { useEffect, useState } from "react"
-
+import Login from "./login"
 
 fcl.config({
   "accessNode.api" : "http://localhost:8888",
@@ -16,37 +16,61 @@ export default function Home() {
 
   const [user,setUser] = useState({addr: ''});
 
-  const [response, setResponse] = useState("");
+  const [posts, setPosts] = useState("");
 
   useEffect(()=> {
     fcl.currentUser.subscribe(setUser);
+
   }, []);
 
   const logIn = () => {
     fcl.authenticate();
+    createCollection;
   };
   const logOut = () => {
     fcl.unauthenticate();
   };
+
+
   //scripts
-  const getName = async () => {
+  const createAndUpdatePosts = async (): Promise<void> => {
+  try {
+    const txId = await fcl.mutate({
+      cadence: `
+      import Flower from 0xFlower
+
+      transaction {
+        prepare(account: AuthAccount){
+        let aReferenceToCollection = account.borrow<&Flower.Collection>(from: /storage/collection) ?? panic("Nothing here")
+        aReferenceToCollection.deposit(post: <-Flower.createPost())
+        }
+
+      execute {
+        log("Post added into Collection")
+        }
+      }`
+    })
+    console.log(txId)
+
     const scriptRes = await fcl.query({
       cadence: `
       import Flower from 0xFlower
 
       pub fun main(account: Address) : [UInt64] {
-      let publicRef = getAccount(account).getCapability(/public/collection).borrow<&Flower.Collection{Flower.ICollection}>() ?? panic("This account does not have a collection")
-
+        let publicRef = getAccount(account).getCapability(/public/collection).borrow<&Flower.Collection{Flower.ICollection}>() ?? panic("This account does not have a collection")
       return publicRef.getIDs()
-}
-`,
+    }`,
       args: (arg, t) => [
         arg("0xf8d6e0586b0a20c7", t.Address),
       ],
     })
     console.log(scriptRes)
-    setResponse(scriptRes)
-  } 
+    setPosts(scriptRes)
+     } catch (error) {
+    console.error('Error occurred:', error);
+  }
+};
+
 
   //transactions
   const createCollection = async () => {
@@ -61,47 +85,33 @@ export default function Home() {
         execute{
         log("Collection created")
       }
-    }
-`,
+    }`,
     })
     console.log(txId)
   }
 
-
-  const createPost = async () => {
-    const txId = await fcl.mutate({
-      cadence: `
-      import Flower from 0xFlower
-
-transaction {
-  prepare(account: AuthAccount){
-    let aReferenceToCollection = account.borrow<&Flower.Collection>(from: /storage/collection) ?? panic("Nothing here")
-    aReferenceToCollection.deposit(post: <-Flower.createPost())
-  }
-
-  execute {
-    log("Post added into Collection")
-  }
-}
-
-`
-    })
-    console.log(txId)
-  }
-
-  return (
-  <div className=" min-h-screen  flex-col items-center">
-    <Navbar/>
-    <div className="flex flex-col items-center justify-between p-24"> 
-        Some good stuff coming soon
-        {user.addr ? user.addr : ""}
-        {"ashu:" + response}
-        <button onClick={createCollection}> transaction </button>
-        <button onClick={createPost}> post</button>
-        <button onClick={getName}> Click </button>
-        <button onClick={logIn}> Log In </button>  
-        <button onClick={logOut}> Log Out </button>  
+  if (user.addr){
+      return (
+  <div className=" min-h-screen flex-col items-center bg-catppuccin_blue5">
+    <Navbar 
+          logout={logOut} 
+          userAcc = {user.addr} 
+          createAndUpdatePosts = {createAndUpdatePosts} />
+    <div className="flex flex-col items-center justify-between p-24">
+          
+          <div className="">
+            
+            {"post ids:" + posts}
+          </div>
       </div>
     </div>
   )
+
+  } else {
+    return (
+    <div>
+        <Login login={logIn}></Login>     
+      </div>
+    )
+  }
 }
