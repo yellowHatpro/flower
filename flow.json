@@ -1,38 +1,21 @@
-{
-
-	"contracts": {
+{"contracts": {
 		"Flower": "./cadence/contracts/flower/Flower.cdc"
   },
-	"networks": {
-		"emulator": "127.0.0.1:3569",
-		"mainnet": "access.mainnet.nodes.onflow.org:9000",
-		"testnet": "access.devnet.nodes.onflow.org:9000"
-	},
-	"accounts": {
-    	"emulator-account": {
-			  "address": "f8d6e0586b0a20c7",
-			  "key": "94f3b2e57f3333a1a0d79ec8b28c9ec1d79c4feffdf454d01adc44ce04e4d1f1"
-		},
-      "testnet-account" : {
-        "address" : "0xe10794baf72e2b06",
-        "key" : {
-           "type": "hex",
-      "index": 0,
-      "signatureAlgorithm": "ECDSA_P256",
-      "hashAlgorithm": "SHA3_256",
-        "privateKey":"$privateKey"
-        }
-      }
-	},
 	"deployments": {
     "emulator" : {
       "emulator-account" : ["Flower"]
     }
-    ,
-		"testnet": {
-			"testnet-account": [ 
-				"Flower"
-			]
+		},
+	"networks": {
+		"emulator": "127.0.0.1:3569",
+		"mainnet": "access.mainnet.nodes.onflow.org:9000",
+		"sandboxnet": "access.sandboxnet.nodes.onflow.org:9000",
+		"testnet": "access.devnet.nodes.onflow.org:9000"
+	},
+	"accounts": {
+		"emulator-account": {
+			"address": "f8d6e0586b0a20c7",
+			"key": "047b4f7b56431dd09897f9a572d8767b2989bea1e63dc8f4999234f4d514d1a9"
 		}
 	}
 }

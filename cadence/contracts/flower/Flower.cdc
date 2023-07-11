@@ -41,8 +41,7 @@ pub contract Flower {
     }
 
     pub fun borrowEntirePost(id: UInt64) : &Post{
-      return (&self.myPosts[id] as &Post?)! 
- 
+      return (&self.myPosts[id] as &Post?)!  
     }
   }
   

@@ -23,9 +23,9 @@ export default function Home() {
 
   }, []);
 
-  const logIn = () => {
-    fcl.authenticate();
-    createCollection;
+  const logIn = async(): Promise<void> => {
+    await fcl.authenticate();
+    await createCollection();
   };
   const logOut = () => {
     fcl.unauthenticate();
@@ -73,7 +73,7 @@ export default function Home() {
 
 
   //transactions
-  const createCollection = async () => {
+  async function  createCollection (){
     const txId = await fcl.mutate({
       cadence : `import Flower from 0xFlower
 
