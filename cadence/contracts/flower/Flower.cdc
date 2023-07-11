@@ -1,20 +1,30 @@
 pub contract Flower {
+
   pub var totalSupply: UInt64
 
   pub resource Post {
     pub let id: UInt64
-
+    
     init(){
       self.id = Flower.totalSupply
-      Flower.totalSupply = Flower.totalSupply + (1 as UInt64)
+      Flower.totalSupply = Flower.totalSupply + 1
     }
   }
 
   pub resource interface ICollection {
     pub fun getIDs() : [UInt64]
+    pub fun borrowEntirePost(id : UInt64) : &Post
   }
 
   pub resource Collection : ICollection {
+
+    init() {
+      self.myPosts <- {}
+    }
+    destroy () {
+      destroy self.myPosts
+    }
+
     pub var myPosts: @{UInt64: Post}
     
     pub fun deposit(post: @Post){
@@ -30,12 +40,9 @@ pub contract Flower {
       return self.myPosts.keys
     }
 
-
-    init() {
-      self.myPosts <- {}
-    }
-    destroy () {
-      destroy self.myPosts
+    pub fun borrowEntirePost(id: UInt64) : &Post{
+      return (&self.myPosts[id] as &Post?)! 
+ 
     }
   }
   
