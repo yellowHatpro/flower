@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Navbar(props: {logout : () => void , createAndUpdatePosts : () => void , userAcc : string  }){
+export default function Navbar(props: {logout : () => void , userAcc : string  }){
   return(
     <div className = "flex bg-catppuccin_blue3 justify-between p-2">
 
@@ -8,9 +8,9 @@ export default function Navbar(props: {logout : () => void , createAndUpdatePost
         Flower
       </text>
       <div className={" "}>
-      <button className="px-10" onClick={props.createAndUpdatePosts}>
-        +
-      </button>
+     <Link href = "/create"> <button className="px-10" >
+        Create New Post
+      </button> </Link>
       <button className = "px-10"> 
        <Link href={"/profile/"+props.userAcc}> {props.userAcc} </Link>
       </button>

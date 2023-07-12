@@ -4,9 +4,17 @@ pub contract Flower {
 
   pub resource Post {
     pub let id: UInt64
+    pub let title: String
+    pub let description: String 
+    pub let body: String
     
-    init(){
+    init( _title: String,
+      _description :  String,
+      _body: String) {
       self.id = Flower.totalSupply
+      self.title = _title
+      self.description = _description
+      self.body = _body
       Flower.totalSupply = Flower.totalSupply + 1
     }
   }
@@ -49,8 +57,8 @@ pub contract Flower {
     return <- create Collection()
   }
 
-  pub fun createPost() : @Post {
-    return <- create Post()
+  pub fun createPost(title: String, description: String, body: String) : @Post {
+    return <- create Post(_title:title, _description: description , _body: body)
   }
   
   init(){

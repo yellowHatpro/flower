@@ -25,7 +25,7 @@ export default function Home() {
 
   const logIn = async(): Promise<void> => {
     await fcl.authenticate();
-    await createCollection();
+    await checkCollectionIsCreated();
   };
   const logOut = () => {
     fcl.unauthenticate();
@@ -33,43 +33,32 @@ export default function Home() {
 
 
   //scripts
-  const createAndUpdatePosts = async (): Promise<void> => {
-  try {
-    const txId = await fcl.mutate({
-      cadence: `
-      import Flower from 0xFlower
 
-      transaction {
-        prepare(account: AuthAccount){
-        let aReferenceToCollection = account.borrow<&Flower.Collection>(from: /storage/collection) ?? panic("Nothing here")
-        aReferenceToCollection.deposit(post: <-Flower.createPost())
-        }
 
-      execute {
-        log("Post added into Collection")
-        }
-      }`
-    })
-    console.log(txId)
+  async function checkCollectionIsCreated(){
+    const res = await fcl.query(
+      {
+        cadence : `import Flower from "../contracts/flower/Flower.cdc"
 
-    const scriptRes = await fcl.query({
-      cadence: `
-      import Flower from 0xFlower
-
-      pub fun main(account: Address) : [UInt64] {
-        let publicRef = getAccount(account).getCapability(/public/collection).borrow<&Flower.Collection{Flower.ICollection}>() ?? panic("This account does not have a collection")
-      return publicRef.getIDs()
-    }`,
-      args: (arg, t) => [
-        arg("0xf8d6e0586b0a20c7", t.Address),
-      ],
-    })
-    console.log(scriptRes)
-    setPosts(scriptRes)
-     } catch (error) {
-    console.error('Error occurred:', error);
+pub fun main(account: Address) : Bool {
+  if  getAccount(account).getCapability(/public/collection).borrow<&Flower.Collection{Flower.ICollection}>() == nil{
+    return  false
   }
-};
+
+  return true
+} 
+
+`
+        ,
+        args : (arg, t) => [
+          arg("0xf8d6e0586b0a20c7", t.Address),
+        ],
+      }
+    )
+    if (!res){
+     await createCollection();
+    }
+  }
 
 
   //transactions
@@ -95,8 +84,7 @@ export default function Home() {
   <div className=" min-h-screen flex-col items-center bg-catppuccin_blue5">
     <Navbar 
           logout={logOut} 
-          userAcc = {user.addr} 
-          createAndUpdatePosts = {createAndUpdatePosts} />
+          userAcc = {user.addr}  />
     <div className="flex flex-col items-center justify-between p-24">
           
           <div className="">

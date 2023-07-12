@@ -1,4 +1,5 @@
-{"contracts": {
+{
+"contracts": {
 		"Flower": "./cadence/contracts/flower/Flower.cdc"
   },
 	"deployments": {
@@ -15,7 +16,7 @@
 	"accounts": {
 		"emulator-account": {
 			"address": "f8d6e0586b0a20c7",
-			"key": "047b4f7b56431dd09897f9a572d8767b2989bea1e63dc8f4999234f4d514d1a9"
+			"key": "9a190e7e229155e00f2ce393c250eed0820d8101c15a4013bbff63bec651c18f"
 		}
 	}
 }
