@@ -31,9 +31,7 @@ export default function Home() {
     fcl.unauthenticate();
   };
 
-
   //scripts
-
 
   async function checkCollectionIsCreated(){
     const res = await fcl.query(
