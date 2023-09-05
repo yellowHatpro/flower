@@ -6,8 +6,8 @@ const Login = (props :  { login :  () => void}) => {
       <Image src={flower_logo_no_text} alt={"Flower Dapp"} className={"indefinite-rotate"}/>
     <div className="flex flex-col ">  
       <text className={"text-6xl  flex justify-center font-black text-pink-50"}> Flower </text>
-      <text className={"text-4xl flex justify-center p-2"}> A decentralised blog sharing site </text>
-      <button className={"flex text-xl justify-center bg-blue-200"} onClick={props.login}>Login</button>
+      <text className={"lg:text-4xl md:text-3xl sm:2xl flex justify-center p-2"}> A decentralised blog sharing site </text>
+      <button className={"flex text-xl justify-center bg-catppuccin_blue1"} onClick={props.login}>Login</button>
     </div>
     </div>
   )

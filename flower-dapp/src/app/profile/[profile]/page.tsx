@@ -21,8 +21,6 @@ export default function Profile({ params : { profile } }: ProfileProps){
 
 const [userPosts, setUserPosts] = useState<Array<Post>>([]);
 
-
-
 async function getUserPosts() {
     try{
     const result = await fcl.query({

@@ -1,6 +1,6 @@
 "use client";
 import * as fcl from "@onflow/fcl";
-import Navbar from "./navbar";
+import {Navbar} from "./components";
 import { useEffect, useState } from "react"
 import {Poppins} from 'next/font/google'
 import Login from "./login"
