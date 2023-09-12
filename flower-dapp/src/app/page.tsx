@@ -4,6 +4,8 @@ import { Navbar } from "./components";
 import { useEffect, useState } from "react"
 import { Poppins } from 'next/font/google'
 import Login from "./login"
+import { script_view_all_posts } from "./scripts";
+import Card from "./components/card";
 
 const poppins = Poppins(
   {
@@ -23,16 +25,24 @@ export default function Home() {
 
   const [user, setUser] = useState({ addr: '' });
 
-  const [posts, setPosts] = useState("");
+  const [posts, setPosts] = useState<any[]>([]);
 
   useEffect(() => {
     fcl.currentUser.subscribe(setUser);
 
   }, []);
 
+  useEffect(() => {
+    handleGetAllPosts()
+  }, [posts])
+
+  const handleGetAllPosts = async (): Promise<void> => {
+    await fetchAllPosts()
+  }
+
+
   const logIn = async (): Promise<void> => {
     await fcl.authenticate();
-    await checkCollectionIsCreated();
   };
   const logOut = () => {
     fcl.unauthenticate();
@@ -40,48 +50,25 @@ export default function Home() {
 
   //scripts
 
-  async function checkCollectionIsCreated() {
+  async function fetchAllPosts() {
     const res = await fcl.query(
       {
-        cadence: `import Flower from "../contracts/flower/Flower.cdc"
-
-pub fun main(account: Address) : Bool {
-  if  getAccount(account).getCapability(/public/collection).borrow<&Flower.Collection{Flower.ICollection}>() == nil{
-    return  false
-  }
-
-  return true
-} 
-
-`,
+        cadence: script_view_all_posts,
         args: (arg, t) => [
           arg("0xf8d6e0586b0a20c7", t.Address),
         ],
       }
     )
     if (!res) {
-      await createCollection();
+      console.log("Error")
+    } else {
+      const getPosts = () => {
+        setPosts(res)
+      }
+      getPosts()
     }
   }
 
-
-  //transactions
-  async function createCollection() {
-    const txId = await fcl.mutate({
-      cadence: `import Flower from 0xFlower
-
-      transaction {
-        prepare(account: AuthAccount){
-        account.save(<-Flower.createCollection(), to: /storage/collection)
-    account.link<&Flower.Collection{Flower.ICollection}>(/public/collection, target: /storage/collection)
-        }
-        execute{
-        log("Collection created")
-      }
-    }`,
-    })
-    console.log(txId)
-  }
 
   return (
     <main className={poppins.className}>
@@ -95,8 +82,16 @@ pub fun main(account: Address) : Bool {
             <div className="flex flex-col items-center justify-between p-24">
 
               <div className="">
-
-                {"post ids:" + posts}
+                {"post ids:"}
+                {posts.map((post, idx) => (
+                  <Card
+                    key={idx}
+                    title={post.title}
+                    desc={post.description}
+                    body={post.body}
+                  />
+                ))
+                }
               </div>
             </div>
           </div>
@@ -104,8 +99,6 @@ pub fun main(account: Address) : Bool {
           <div>
             <Login login={logIn}></Login>
           </div>
-
-
       }
     </main>)
 }

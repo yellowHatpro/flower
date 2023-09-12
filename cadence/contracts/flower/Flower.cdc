@@ -2,66 +2,70 @@ pub contract Flower {
 
   pub var totalSupply: UInt64
 
-  pub resource Post {
-    pub let id: UInt64
-    pub let title: String
-    pub let description: String 
-    pub let body: String
+  pub var posts : {UInt64: Post}
+
+  pub var userAddressToPosts : {Address: {UInt64: Bool}}
+
+  pub var users: {UInt64: User}
+
+  pub struct Post {
+    pub(set) var id: UInt64
+    pub(set) var userAddress: Address
+    pub(set) var title: String
+    pub(set) var description: String 
+    pub(set) var body: String
     
     init( _title: String,
       _description :  String,
-      _body: String) {
+      _body: String,
+      _userAddress : Address) {
       self.id = Flower.totalSupply
+      self.userAddress = _userAddress 
       self.title = _title
       self.description = _description
       self.body = _body
-      Flower.totalSupply = Flower.totalSupply + 1
     }
   }
 
-  pub resource interface ICollection {
-    pub fun getIDs() : [UInt64]
-    pub fun borrowEntirePost(id : UInt64) : &Post
-  }
+  pub struct User {
+    pub let id: Address
+    pub let totalPosts : UInt64 
+    pub let bookmarks : [Post]
 
-  pub resource Collection : ICollection {
-
-    init() {
-      self.myPosts <- {}
-    }
-    destroy () {
-      destroy self.myPosts
-    }
-
-    pub var myPosts: @{UInt64: Post}
-    
-    pub fun deposit(post: @Post){
-      self.myPosts[post.id] <-! post
-    }
-
-    pub fun withdraw(id: UInt64): @Post{
-      let post <- self.myPosts.remove(key: id) ?? panic("This collection does not contain post with specified id")
-      return <- post
-    }
-
-    pub fun getIDs(): [UInt64] {
-      return self.myPosts.keys
-    }
-
-    pub fun borrowEntirePost(id: UInt64) : &Post{
-      return (&self.myPosts[id] as &Post?)!  
+    init( _id: Address, _totalPosts : UInt64, _bookmnarks: [Post]){
+      self.id = _id
+      self.totalPosts = _totalPosts
+      self.bookmarks = _bookmnarks
     }
   }
-  
-  pub fun createCollection() : @Collection {
-    return <- create Collection()
+
+  pub fun createPost(title: String, description: String, body: String, userAddress: Address) {
+    var post = Post(_title:title, _description: description , _body: body, _userAddress : userAddress)
+    self.posts[self.totalSupply] = post
+    self.totalSupply = self.totalSupply + 1
+    self.userAddressToPosts[userAddress]?.insert(key: self.totalSupply, true)
   }
 
-  pub fun createPost(title: String, description: String, body: String) : @Post {
-    return <- create Post(_title:title, _description: description , _body: body)
+  pub fun updatePost(id: UInt64, title: String, description: String, body: String, userAddress: Address) {
+    var post = self.getPostById(id: id);
+    post.title = title
+    post.description = description
+    post.body = body
+    self.posts[id] = post
   }
-  
+
+  pub fun deletePost(id: UInt64, userAddress: Address) {
+    self.posts.remove(key: id)
+  }
+
+  pub fun getPostById(id: UInt64) : Post{
+    return self.posts[id]!
+  }
+
   init(){
     self.totalSupply = 0
+    self.posts = {}
+    self.users = {}
+    self.userAddressToPosts = {}
   }
 }
