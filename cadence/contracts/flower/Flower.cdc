@@ -9,7 +9,7 @@ pub contract Flower {
   pub var users: {UInt64: User}
 
   pub struct Post {
-    pub(set) var id: UInt64
+    pub var id: UInt64
     pub(set) var userAddress: Address
     pub(set) var title: String
     pub(set) var description: String 

@@ -34,7 +34,7 @@ export default function Home() {
 
   useEffect(() => {
     handleGetAllPosts()
-  }, [posts])
+  }, [])
 
   const handleGetAllPosts = async (): Promise<void> => {
     await fetchAllPosts()
@@ -59,6 +59,7 @@ export default function Home() {
         ],
       }
     )
+    console.log(res)
     if (!res) {
       console.log("Error")
     } else {
