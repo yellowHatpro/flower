@@ -8,11 +8,13 @@ pub contract Flower {
 
   pub var users: {UInt64: User}
 
+  pub var userAddressToUser : {Address: User}
+
   pub struct Post {
-    pub var id: UInt64
+    pub let id: UInt64
     pub(set) var userAddress: Address
     pub(set) var title: String
-    pub(set) var description: String 
+    pub(set) var description: String
     pub(set) var body: String
     
     init( _title: String,
@@ -67,5 +69,6 @@ pub contract Flower {
     self.posts = {}
     self.users = {}
     self.userAddressToPosts = {}
+    self.userAddressToUser = {}
   }
 }

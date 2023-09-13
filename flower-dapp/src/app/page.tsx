@@ -1,11 +1,10 @@
 "use client";
 import * as fcl from "@onflow/fcl";
-import { Navbar } from "./components";
+import { Navbar, Card, CreatePost } from "./components";
 import { useEffect, useState } from "react"
 import { Poppins } from 'next/font/google'
 import Login from "./login"
 import { script_view_all_posts } from "./scripts";
-import Card from "./components/card";
 
 const poppins = Poppins(
   {
@@ -29,11 +28,10 @@ export default function Home() {
 
   useEffect(() => {
     fcl.currentUser.subscribe(setUser);
-
   }, []);
 
   useEffect(() => {
-    handleGetAllPosts()
+    handleGetAllPosts();
   }, [])
 
   const handleGetAllPosts = async (): Promise<void> => {
@@ -80,13 +78,15 @@ export default function Home() {
             <Navbar
               logout={logOut}
               userAcc={user.addr} />
-            <div className="flex flex-col items-center justify-between p-24">
 
-              <div className="">
-                {"post ids:"}
+            <CreatePost />
+
+            <div className="flex flex-col items-center justify-between">
+              <div className="flex flex-col">
                 {posts.map((post, idx) => (
                   <Card
                     key={idx}
+                    user={post.userAddress}
                     title={post.title}
                     desc={post.description}
                     body={post.body}
