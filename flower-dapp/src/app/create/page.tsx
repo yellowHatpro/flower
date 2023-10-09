@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import React, { useState } from "react";
 import * as fcl from "@onflow/fcl";
 import { transaction_create_post } from "../components/transactions";
 
@@ -34,34 +34,16 @@ export default function Create() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await createAndUpdatePosts()
-    // onSubmit(title, description, body);
   };
   return (
 
-    <div className="bg-catppuccin_blue5 min-w-full">
-      <div>
-        <div className="navbar bg-catppuccin_blue1">
-          <div className="flex-1">
-            <a className="btn btn-ghost normal-case text-xl">Flower</a>
-          </div>
-          <div className="flex-none">
-            <button className="btn btn-square btn-ghost">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
-            </button>
-          </div>
-        </div>
-        <div className={"px-10 py-4"}>
-          <text className={"text-xl"}> Create Post </text>
-        </div>
-      </div>
-
-
-      <div className="px-10 py-10 flex flex-row justify-start items-start">
+    <div className="bg-catppuccin_blue5 text-gray-200 min-h-screen flex-col">
+      <div className="px-10 py-10 justify-start items-start">
         <form onSubmit={handleSubmit}>
           <div className={"flex flex-col py-4"}>
             <label htmlFor="title" className={"py-4"}>Title:</label>
             <input
-              className={"input input-bordered input-primary w-full max-w-xs"}
+              className={"input input-bordered bg-catppuccin_blue0"}
               type="text"
               id="title"
               value={title}
@@ -70,9 +52,8 @@ export default function Create() {
           </div>
           <div className={"flex flex-col py-4"}>
             <label htmlFor="description" className={"py-4"}>Description:</label>
-            <input
-              className={"input input-bordered input-primary w-full max-w-xs"}
-              type="text"
+            <textarea
+              className={"textarea textarea-bordered bg-catppuccin_blue0"}
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -81,15 +62,15 @@ export default function Create() {
           <div className={"flex flex-col py-4"}>
             <label htmlFor="body" className={"py-4"}>Body:</label>
             <textarea
-              className={"textarea textarea-bordered textarea-lg w-full max-w-xs"}
+              className={"textarea textarea-bordered textarea-lg w-full bg-catppuccin_blue0"}
               id="body"
               value={body}
               onChange={(e) => setBody(e.target.value)}
             ></textarea>
           </div>
           <div className="join">
-            <button className="btn join-item" type="submit">Submit</button>
-            <button className="btn join-item">Cancel</button>
+            <button className="btn join-item bg-catppuccin_blue1 text-gray-200 hover:bg-gray-200 hover:text-catppuccin_blue0" type="submit">Submit</button>
+            <button className="btn join-item bg-catppuccin_blue1 text-gray-200 hover:bg-gray-200 hover:text-catppuccin_blue0">Cancel</button>
           </div>
         </form>
       </div>
