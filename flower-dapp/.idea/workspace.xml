@@ -5,15 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78bb70c2-bdd1-4436-b941-a27682eab9a4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/components/modal.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/navbar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/create/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/create/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/main.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/scripts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/fcl_components/scripts.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +24,7 @@
       <list>
         <option value="JavaScript File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -79,6 +79,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/fcl_components" />
       <recent name="$PROJECT_DIR$/src/app/components" />
       <recent name="$PROJECT_DIR$/src/assets" />
     </key>
@@ -94,7 +95,7 @@
       <workItem from="1693921492472" duration="8866000" />
       <workItem from="1695286270175" duration="115000" />
       <workItem from="1696859631507" duration="2877000" />
-      <workItem from="1696863099209" duration="6448000" />
+      <workItem from="1696863099209" duration="12461000" />
     </task>
     <servers />
   </component>

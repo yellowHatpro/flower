@@ -2,10 +2,13 @@
 
 import * as fcl from "@onflow/fcl";
 import { Navbar } from "./components";
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import Login from "./login"
-import { script_view_all_posts } from "./scripts";
+import { script_view_all_posts } from "./fcl_components/scripts";
 import Main from "./main";
+import {logOut, logIn}  from "@/app/fcl_components/onflow_fcl";
+import Image from "next/image";
+import {flower} from "@/assets";
 
 
 fcl.config({
@@ -26,20 +29,12 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    handleGetAllPosts();
+    handleGetAllPosts().then().finally();
   }, [])
 
   const handleGetAllPosts = async (): Promise<void> => {
     await fetchAllPosts()
   }
-
-
-  const logIn = async (): Promise<void> => {
-    await fcl.authenticate();
-  };
-  const logOut = () => {
-    fcl.unauthenticate();
-  };
 
   async function fetchAllPosts() {
     const res = await fcl.query(
@@ -66,9 +61,11 @@ export default function Home() {
       <main>
         {
           (user.addr) ?
-
               <div className=" min-h-screen flex-col items-center bg-catppuccin_blue5">
                 <Navbar
+                    leftItem={
+                      <Image src={flower} alt={"Flower"} className="h-[40px] w-[40px]"/>
+                    }
                     logout={logOut}
                     userAcc={user.addr}/>
                 <Main posts={posts}/>

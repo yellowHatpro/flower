@@ -1,19 +1,26 @@
 "use client"
 
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import * as fcl from "@onflow/fcl";
 import { transaction_create_post } from "../components/transactions";
+import {Navbar} from "@/app/components";
+import {logOut} from "@/app/fcl_components/onflow_fcl";
+import Link from "next/link";
+import {useRouter} from "next/navigation";
+import Modal from "@/app/components/modal";
 
 export default function Create() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [body, setBody] = useState('');
-  fcl.config({
-    "accessNode.api": "http://localhost:8888",
-    "discovery.wallet": "http://localhost:8701/fcl/authn", // emulator endpoint
-    "app.detail.title": "Flower",
-    "0xFlower": "0xf8d6e0586b0a20c7"
-  })
+  const [user, setUser] = useState({addr: ''});
+  const [errorModal, setErrorModal] = useState(false);
+  const router = useRouter();
+
+  const routeToHome = () => {
+    router.push("/");
+  }
+
   const createAndUpdatePosts = async (): Promise<void> => {
     try {
       const txId = await fcl.mutate({
@@ -31,49 +38,92 @@ export default function Create() {
     }
   };
 
+  const openErrorModal = () => {
+    setErrorModal(true);
+  }
+
+  const closeErrorModal = () => {
+    setErrorModal(false);
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await createAndUpdatePosts()
-  };
-  return (
+    if (title.trim()=="" || description.trim()=="" || body.trim()==""){
+      setErrorModal(true);
+    } else {
+      await createAndUpdatePosts();
+      routeToHome()
+    }
 
-    <div className="bg-catppuccin_blue5 text-gray-200 min-h-screen flex-col">
-      <div className="px-10 py-10 justify-start items-start">
-        <form onSubmit={handleSubmit}>
-          <div className={"flex flex-col py-4"}>
-            <label htmlFor="title" className={"py-4"}>Title:</label>
-            <input
+  };
+
+  const handleReset = (e: React.FormEvent<HTMLFormElement>)  =>{
+    setTitle("")
+    setDescription("")
+    setBody("")
+  }
+
+  useEffect(() => {
+    fcl.currentUser.subscribe(setUser);
+  }, []);
+
+
+  return (
+<>
+  <Navbar leftItem={
+    <Link href={"/"}>
+        <div className={"btn btn-square bg-gray-200"}>
+          ᐊ
+        </div>
+    </Link>
+  } logout={logOut}
+          userAcc={user.addr}/>
+
+  {
+    errorModal &&
+      <Modal isOpen={errorModal} onClose={closeErrorModal}>
+        {"Please fill complete details"}
+      </Modal>
+  }
+
+  <div className="bg-catppuccin_blue5 text-gray-200 min-h-screen flex-col">
+    <div className="px-10 py-10 justify-start items-start">
+      <form onSubmit={handleSubmit} onReset={handleReset}>
+        <div className={"flex flex-col py-4"}>
+          <label htmlFor="title" className={"py-4"}>Title:</label>
+          <input
               className={"input input-bordered bg-catppuccin_blue0"}
               type="text"
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
-          <div className={"flex flex-col py-4"}>
-            <label htmlFor="description" className={"py-4"}>Description:</label>
-            <textarea
+          />
+        </div>
+        <div className={"flex flex-col py-4"}>
+          <label htmlFor="description" className={"py-4"}>Description:</label>
+          <textarea
               className={"textarea textarea-bordered bg-catppuccin_blue0"}
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
-          <div className={"flex flex-col py-4"}>
-            <label htmlFor="body" className={"py-4"}>Body:</label>
-            <textarea
+          />
+        </div>
+        <div className={"flex flex-col py-4"}>
+          <label htmlFor="body" className={"py-4"}>Body:</label>
+          <textarea
               className={"textarea textarea-bordered textarea-lg w-full bg-catppuccin_blue0"}
               id="body"
               value={body}
               onChange={(e) => setBody(e.target.value)}
-            ></textarea>
-          </div>
-          <div className="join">
-            <button className="btn join-item bg-catppuccin_blue1 text-gray-200 hover:bg-gray-200 hover:text-catppuccin_blue0" type="submit">Submit</button>
-            <button className="btn join-item bg-catppuccin_blue1 text-gray-200 hover:bg-gray-200 hover:text-catppuccin_blue0">Cancel</button>
-          </div>
-        </form>
-      </div>
+          ></textarea>
+        </div>
+        <div className="join">
+          <button className="btn join-item bg-catppuccin_blue1 text-gray-200 hover:bg-gray-200 hover:text-catppuccin_blue0" type="submit">Submit</button>
+          <button className="btn join-item bg-catppuccin_blue1 text-gray-200 hover:bg-gray-200 hover:text-catppuccin_blue0" type="reset">Discard</button>
+        </div>
+      </form>
     </div>
+  </div>
+</>
   )
 }
