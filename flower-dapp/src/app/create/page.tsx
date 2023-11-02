@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import * as fcl from "@onflow/fcl";
-import { transaction_create_post } from "../components/transactions";
+import { transaction_create_post } from "../fcl_components/transactions";
 import {Navbar} from "@/app/components";
 import {logOut} from "@/app/fcl_components/onflow_fcl";
 import Link from "next/link";
@@ -29,7 +29,8 @@ export default function Create() {
         args: (arg, t) => [
           arg(title, t.String),
           arg(description, t.String),
-          arg(body, t.String)
+          arg(body, t.String),
+            arg(Date.now().toString(), t.String)
         ]
       })
       console.log(txId)
@@ -37,10 +38,6 @@ export default function Create() {
       console.error('Error occurred:', error);
     }
   };
-
-  const openErrorModal = () => {
-    setErrorModal(true);
-  }
 
   const closeErrorModal = () => {
     setErrorModal(false);
@@ -57,7 +54,7 @@ export default function Create() {
 
   };
 
-  const handleReset = (e: React.FormEvent<HTMLFormElement>)  =>{
+  const handleReset = ()  =>{
     setTitle("")
     setDescription("")
     setBody("")

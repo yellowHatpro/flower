@@ -5,14 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78bb70c2-bdd1-4436-b941-a27682eab9a4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/components/modal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cadence/contracts/flower/Flower.cdc" beforeDir="false" afterPath="$PROJECT_DIR$/../cadence/contracts/flower/Flower.cdc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cadence/scripts/view_user_posts.cdc" beforeDir="false" afterPath="$PROJECT_DIR$/../cadence/scripts/view_user_posts.cdc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cadence/transactions/create_post.cdc" beforeDir="false" afterPath="$PROJECT_DIR$/../cadence/transactions/create_post.cdc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flow.json" beforeDir="false" afterPath="$PROJECT_DIR$/../flow.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/create_post.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/create_post.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/modal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/modal.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/transactions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/fcl_components/transactions.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/create/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/create/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/fcl_components/scripts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/fcl_components/scripts.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/posts.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/scripts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/fcl_components/scripts.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/profile/[profile]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/[profile]/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +33,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="TypeScript File" />
+        <option value="JavaScript File" />
         <option value="TypeScript JSX File" />
       </list>
     </option>
@@ -59,26 +70,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/yellowhatpro/code/gh/flower/flower-dapp",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "settings.editor.splitter.proportion": "0.25164473",
-    "ts.external.directory.path": "/home/yellowhatpro/code/gh/flower/flower-dapp/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/yellowhatpro/code/gh/GridCoin/gridcoin-dapp&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.25164473&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/yellowhatpro/code/gh/flower/flower-dapp/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/app/fcl_components" />
       <recent name="$PROJECT_DIR$/src/app/components" />
       <recent name="$PROJECT_DIR$/src/assets" />
@@ -95,7 +107,10 @@
       <workItem from="1693921492472" duration="8866000" />
       <workItem from="1695286270175" duration="115000" />
       <workItem from="1696859631507" duration="2877000" />
-      <workItem from="1696863099209" duration="12461000" />
+      <workItem from="1696863099209" duration="19438000" />
+      <workItem from="1697152538764" duration="26000" />
+      <workItem from="1698831012338" duration="10687000" />
+      <workItem from="1698853970983" duration="32011000" />
     </task>
     <servers />
   </component>

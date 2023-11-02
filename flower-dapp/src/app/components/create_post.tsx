@@ -3,7 +3,7 @@ import React from 'react'
 
 const CreatePost = () => {
   return (
-    <div className={"flex bg-catppuccin_blue0 rounded-md p-2 mx-20 my-10 justify-center"}>
+    <div className={"flex bg-catppuccin_blue0 rounded-md p-2 mx-20 my-10 text-gray-200 justify-center"}>
       <Link href={"/create"}>
         <div>      Create Post ✍🏻
         </div>
