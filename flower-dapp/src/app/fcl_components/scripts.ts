@@ -24,4 +24,12 @@ pub fun main(account: Address) : [Flower.Post] {
 } 
   `
 
-export { script_view_all_posts, script_view_user_posts };
+const script_get_user_details = `
+import Flower from 0xFlower;
+
+pub fun main(account: Address) : Flower.User {
+  return Flower.getUserDetails(userAddress: account)
+}
+`
+
+export { script_view_all_posts, script_view_user_posts, script_get_user_details };

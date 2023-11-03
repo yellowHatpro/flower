@@ -7,7 +7,7 @@ import {logOut} from "@/app/fcl_components/onflow_fcl";
 export default function Navbar(props: {
   leftItem: React.ReactNode}) {
 
-  const userAddress = userStore((state)=>state.userAddress)
+  const userAddress = userStore((state)=>state.addr)
 
   return (
       <div className="flex bg-catppuccin_blue3 justify-between p-2 items-center text-gray-200">

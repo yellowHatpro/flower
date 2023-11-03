@@ -1,15 +1,9 @@
 import {flower_logo_no_text} from '../assets'
 import Image from "next/image";
-import {useEffect} from "react";
-import {currentUser} from "@onflow/fcl";
 import {logIn}  from "@/app/fcl_components/onflow_fcl";
 import "@/config/fclConfig";
 
-const Login = (props: {setUser: () => void}) => {
-  useEffect(() => {
-    currentUser.subscribe(props.setUser)
-  }, []);
-
+const Login = () => {
   return (
       <div className={"flex justify-center items-center flex-col min-h-screen bg-catppuccin_blue5"}>
         <Image src={flower_logo_no_text} alt={"Flower Dapp"} className={"indefinite-rotate"}/>
