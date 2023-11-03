@@ -34,12 +34,16 @@ pub contract Flower {
 
   pub struct User {
     pub(set) var addr: Address
-    pub(set) var name: String 
+    pub(set) var name: String
+    pub(set) var email: String
+    pub(set) var userBio: String
     pub(set) var userPosts : [UInt64] // post id array 
     pub(set) var bookmarks : [UInt64]
     pub(set) var likedPosts: [UInt64]
     init(_name: String, _addr: Address){
       self.addr = _addr
+      self.email = ""
+      self.userBio = ""
       self.userPosts = []
       self.bookmarks = []
       self.likedPosts = []
