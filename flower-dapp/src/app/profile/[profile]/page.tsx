@@ -4,32 +4,38 @@ import * as fcl from "@onflow/fcl";
 import {Navbar} from "@/app/components";
 import Link from "next/link";
 import React, {useEffect, useState} from "react";
-import {script_view_user_posts} from "@/app/fcl_components/scripts";
+import {script_view_user_bookmarks, script_view_user_posts} from "@/app/fcl_components/scripts";
 import Posts from "@/app/components/posts";
 import userStore from "@/app/store/store";
 import "@/config/fclConfig";
+import {Post} from "@/app/model/post";
 
 interface ProfileProps {
   params : {profile : string}
 }
 export default function Profile({ params : { profile } }: ProfileProps) {
-    const userAddress = userStore((state) => state.addr)
+    const userAddress = userStore((state) => state.addr?.addr)
     const userName = userStore((state) => state.name)
     const userEmail = userStore((state) => state.email)
     const userBio = userStore((state) => state.userBio)
-    const userBookmarks = userStore((state) => state.bookmarks)
-    const userLikes = userStore((state) => state.likedPosts)
-    const userPosts = userStore((state) => state.userPosts)
+    const [userBookmarks, setUserBookmarks] = useState<Post[]>([])
+    const [userPosts, setUserPosts] = useState<Post[]>([])
     const [tab, setTab] = useState(0)
 
 
     useEffect(() => {
-        handleGetAllPosts().then().finally();
+        const handleGetAllUserPosts = async (): Promise<void> => {
+            await fetchAllUserPosts()
+        }
+        handleGetAllUserPosts().then().finally();
     }, [])
 
-    const handleGetAllPosts = async (): Promise<void> => {
-        await fetchAllUserPosts()
-    }
+    useEffect(() => {
+        const handleGetAllUserBookmarks = async () => {
+            await fetchAllUserBookmarks()
+        }
+        handleGetAllUserBookmarks().then().finally()
+    }, []);
 
     async function fetchAllUserPosts() {
         const res = await fcl.query(
@@ -44,7 +50,26 @@ export default function Profile({ params : { profile } }: ProfileProps) {
             console.log("Error")
         } else {
             const getPosts = () => {
-                userStore.setState({userPosts: res})
+                setUserPosts(res)
+            }
+            getPosts()
+        }
+    }
+
+    async function fetchAllUserBookmarks() {
+        const res = await fcl.query(
+            {
+                cadence: script_view_user_bookmarks,
+                args: (arg, t) => [
+                    arg(userAddress, t.Address),
+                ],
+            }
+        )
+        if (!res) {
+            console.log("Error")
+        } else {
+            const getPosts = () => {
+                setUserBookmarks(res)
             }
             getPosts()
         }
@@ -64,14 +89,14 @@ export default function Profile({ params : { profile } }: ProfileProps) {
                             <span className="text-7xl">0x</span>
                         </div>
                     </div>
-                    <div className={"flex flex-col min-w-[70%]"}>
-                        <ItemGroup item={"Name"} name={userName} todo={() => null}/>
-                        <ItemGroup item={"Bio"} name={userBio} todo={() => null}/>
-                        <ItemGroup item={"Email"} name={userEmail} todo={() => null}/>
+                    <div className={"flex flex-col items-center justify-center"}>
+                        {userName && <ItemGroup item={"Name"} name={userName}/>}
+                        {userBio && <ItemGroup item={"Bio"} name={userBio}/>}
+                        {userEmail && <ItemGroup item={"Email"} name={userEmail}/>}
                     </div>
 
                 </div>
-                <div className="divider p-10"/>
+                <div className="divider p-4"/>
                 <div>
                     <div className="tabs">
                         <a onClick={() => setTab(0)} className={`tab tab-lifted ${tab === 0 && "tab-active"}`}>Your
@@ -81,28 +106,25 @@ export default function Profile({ params : { profile } }: ProfileProps) {
                         <a onClick={() => setTab(2)} className={`tab tab-lifted ${tab === 2 && "tab-active"}`}>Liked
                             posts</a>
                     </div>
-                    {tab === 0 && <>
-                        <div className="bg-catppuccin_blue5 text-gray-200 min-h-screen flex-col">
-                            <Posts posts={userPosts}/>
-                        </div>
-                    </>}
-                    {tab === 1 && <>
-                        <div className="bg-catppuccin_blue5 text-gray-200 min-h-screen flex-col">
-                            <Posts posts={userBookmarks}/>
-                        </div>
-                    </>}
-                    {tab === 2 && <>
-                        <div className="bg-catppuccin_blue5 text-gray-200 min-h-screen flex-col">
-                            <Posts posts={userLikes}/>
-                        </div>
-                    </>}
+                    <div className={"p-4"}>
+                        {tab === 0 && <>
+                            <div className="bg-catppuccin_blue5 text-gray-200 min-h-screen flex-col">
+                                <Posts posts={userPosts}/>
+                            </div>
+                        </>}
+                        {tab === 1 && <>
+                            <div className="bg-catppuccin_blue5 text-gray-200 min-h-screen flex-col">
+                                <Posts posts={userBookmarks}/>
+                            </div>
+                        </>}
+                    </div>
                 </div>
             </div>
         </div>
     )
 }
 
-const ItemGroup = (props: {item: string, name: string, todo: () => void}) => {
+const ItemGroup = (props: {item: string, name: string}) => {
     return (
         <div className={"flex flex-row items-center"}>
             <div className={"flex flex-row items-center p-4"}>
@@ -113,9 +135,6 @@ const ItemGroup = (props: {item: string, name: string, todo: () => void}) => {
                     <input type="text" placeholder={`${props.name}`} className="input w-full"/>
                 </div>
             </div>
-            <button className={"btn btn-outline"} onClick={props.todo}>
-                ✔️
-            </button>
         </div>
     )
 }

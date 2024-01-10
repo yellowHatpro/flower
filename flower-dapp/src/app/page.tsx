@@ -15,21 +15,18 @@ export default function Home() {
         currentUser.subscribe(setUserAddr)
     }, []);
 
-
     useEffect(() => {
         userStore.subscribe(console.log)
-        userStore.setState({addr: userAddr.addr})
+        userStore.setState({addr: userAddr})
     }, [userAddr])
-
-
 
     return (
         <main>
             {
                 (userAddr.addr) ?
-                    <Main userAddress={userAddr}/>
+                    <Main userAddress={userAddr.addr}/>
                     :
-                    <Login setUser={setUserAddr}></Login>
+                    <Login/>
             }
         </main>)
 }

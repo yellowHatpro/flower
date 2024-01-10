@@ -13,6 +13,8 @@ import {Post} from "@/app/model/post";
 import {useRouter} from "next/navigation";
 import userStore from "@/app/store/store";
 
+
+
 export function Main(props: {
     userAddress: String
 }) {
@@ -30,7 +32,7 @@ export function Main(props: {
 
     const router = useRouter()
 
-    const addr = props.userAddress.addr
+    const addr = props.userAddress
 
     const handleGetUserDetails = async (): Promise<void> => await fetchUser()
     const handleGetAllPosts = async (): Promise<void> => await fetchAllPosts()
@@ -80,11 +82,10 @@ export function Main(props: {
             <Navbar
                 leftItem={
                     <Image src={flower} alt={"Flower"} className="h-[40px] w-[40px]"/>
-                }
-                logout={logOut}/>
+                }/>
             <div className={"flex flex-row p-2"}>
                 <LeftMain/>
-                <div>
+                <div className={"grow"}>
                     <CreatePost/>
                     <Posts posts={posts}/>
                 </div>

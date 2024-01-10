@@ -12,4 +12,18 @@ transaction(title: String, description: String, body: String, date: String) {
 }
 `
 
-export { transaction_create_post }
+const transaction_update_user = `
+import Flower from 0xFlower
+
+transaction(name: String, email: String, userBio: String) {
+  prepare(account: AuthAccount){
+      Flower.updateUser(name: name, email: email, userBio: userBio, userAddress: account.address)
+  }
+
+  execute {
+    log("User updated successfully")
+  }
+}
+`
+
+export { transaction_create_post, transaction_update_user }

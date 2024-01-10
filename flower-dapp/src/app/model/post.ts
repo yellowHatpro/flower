@@ -5,5 +5,12 @@ export interface Post {
     description: string
     body: string
     date: string
-    likes: number
+    status: PostStatus,
+    approveRequests: String[],
+    approvers: String[]
+}
+
+enum PostStatus {
+    NOT_APPROVED,
+    APPROVED
 }

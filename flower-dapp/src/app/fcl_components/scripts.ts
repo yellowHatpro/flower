@@ -23,6 +23,20 @@ pub fun main(account: Address) : [Flower.Post] {
   return posts
 } 
   `
+const script_view_user_bookmarks = `
+import Flower from 0xFlower;
+
+pub fun main(account: Address) : [Flower.Post] {
+    var bookmarks : [Flower.Post] = []
+    var user : Flower.User?=  Flower.users[account]
+    var postIds = user!.bookmarks
+    for postId in postIds {
+        log(postId)
+        bookmarks.append(Flower.posts[postId]!)
+    }
+    return bookmarks
+} 
+`
 
 const script_get_user_details = `
 import Flower from 0xFlower;
@@ -32,4 +46,4 @@ pub fun main(account: Address) : Flower.User {
 }
 `
 
-export { script_view_all_posts, script_view_user_posts, script_get_user_details };
+export { script_view_all_posts, script_view_user_posts, script_get_user_details, script_view_user_bookmarks };
