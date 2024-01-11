@@ -4,23 +4,67 @@ import * as fcl from "@onflow/fcl";
 import {Navbar} from "@/app/components";
 import Link from "next/link";
 import React, {useEffect, useState} from "react";
-import {script_view_user_bookmarks, script_view_user_posts} from "@/app/fcl_components/scripts";
+import {
+    script_get_user_details,
+    script_view_user_bookmarks,
+    script_view_user_posts
+} from "@/app/fcl_components/scripts";
 import Posts from "@/app/components/posts";
 import userStore from "@/app/store/store";
 import "@/config/fclConfig";
 import {Post} from "@/app/model/post";
+import {currentUser} from "@onflow/fcl";
 
 interface ProfileProps {
   params : {profile : string}
 }
 export default function Profile({ params : { profile } }: ProfileProps) {
-    const userAddress = userStore((state) => state.address)!
     const userName = userStore((state) => state.name)
     const userEmail = userStore((state) => state.email)
     const userBio = userStore((state) => state.userBio)
     const [userBookmarks, setUserBookmarks] = useState<Post[]>([])
     const [userPosts, setUserPosts] = useState<Post[]>([])
     const [tab, setTab] = useState(0)
+    const [userAddress, setUserAddress] = useState({
+        addr: ''
+    })
+    const userNameStore = userStore((state) => state.name)
+
+    useEffect(() => {
+        currentUser.subscribe(setUserAddress)
+    }, []);
+
+    useEffect(() => {
+        async function fetchUser() {
+            const res = await fcl.query(
+                {
+                    cadence: script_get_user_details,
+                    args: (arg, t) => [
+                        arg(userAddress.addr, t.Address),
+                    ],
+                }
+            )
+            console.log("user: ", res)
+            if (!res) {
+                console.log("User fetch error")
+            } else {
+                const getUser = () => {
+                    console.log("what?")
+                    userStore.setState(res)
+                }
+                getUser()
+            }
+        }
+
+        const handleGetUserDetails = async (): Promise<void> => await fetchUser()
+        if (userAddress.addr && userAddress.addr.startsWith('0x',0)) handleGetUserDetails().finally()
+    }, [userAddress.addr, userNameStore]);
+
+    useEffect(() => {
+        userStore.subscribe(console.log)
+        userStore.setState({address: userAddress})
+    }, [userAddress])
+
 
 
     useEffect(() => {
