@@ -1,7 +1,7 @@
 import {Post} from "@/app/model/post";
 
 export interface User {
-    addr?: addr
+    address?: Address
     role?: Role
     name?: string
     email?: string
@@ -16,6 +16,6 @@ enum Role {
     APPROVER,
     READER
 }
-type addr = {
+type Address = {
     addr: String
 }

@@ -6,8 +6,8 @@ export interface Post {
     body: string
     date: string
     status: PostStatus,
-    approveRequests: String[],
-    approvers: String[]
+    approveRequests: string[],
+    approvers: string[]
 }
 
 enum PostStatus {

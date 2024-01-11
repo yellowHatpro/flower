@@ -10,11 +10,6 @@ const script_view_user_posts = `
 pub fun main(account: Address) : [Flower.Post] {
   var posts : [Flower.Post] = []
   var user : Flower.User?=  Flower.users[account]
-  if user == nil {
-      Flower.createUser(userAddress: account, name: "Anonymous")
-      log("user was nil")
-      return posts
-  }
   var postIds = user!.userPosts
   for postId in postIds {
     log(postId)
@@ -41,7 +36,7 @@ pub fun main(account: Address) : [Flower.Post] {
 const script_get_user_details = `
 import Flower from 0xFlower;
 
-pub fun main(account: Address) : Flower.User {
+pub fun main(account: Address) : Flower.User? {
   return Flower.getUserDetails(userAddress: account)
 }
 `

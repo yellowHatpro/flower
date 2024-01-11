@@ -14,7 +14,7 @@ interface ProfileProps {
   params : {profile : string}
 }
 export default function Profile({ params : { profile } }: ProfileProps) {
-    const userAddress = userStore((state) => state.addr?.addr)
+    const userAddress = userStore((state) => state.address)!
     const userName = userStore((state) => state.name)
     const userEmail = userStore((state) => state.email)
     const userBio = userStore((state) => state.userBio)
@@ -27,14 +27,14 @@ export default function Profile({ params : { profile } }: ProfileProps) {
         const handleGetAllUserPosts = async (): Promise<void> => {
             await fetchAllUserPosts()
         }
-        handleGetAllUserPosts().then().finally();
+        if(userName!='') handleGetAllUserPosts().then().finally();
     }, [])
 
     useEffect(() => {
         const handleGetAllUserBookmarks = async () => {
             await fetchAllUserBookmarks()
         }
-        handleGetAllUserBookmarks().then().finally()
+        if (userName!='') handleGetAllUserBookmarks().then().finally()
     }, []);
 
     async function fetchAllUserPosts() {
@@ -42,7 +42,7 @@ export default function Profile({ params : { profile } }: ProfileProps) {
             {
                 cadence: script_view_user_posts,
                 args: (arg, t) => [
-                    arg(userAddress, t.Address),
+                    arg(userAddress.addr, t.Address),
                 ],
             }
         )
@@ -61,7 +61,7 @@ export default function Profile({ params : { profile } }: ProfileProps) {
             {
                 cadence: script_view_user_bookmarks,
                 args: (arg, t) => [
-                    arg(userAddress, t.Address),
+                    arg(userAddress.addr, t.Address),
                 ],
             }
         )

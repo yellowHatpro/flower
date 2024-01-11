@@ -12,6 +12,20 @@ transaction(title: String, description: String, body: String, date: String) {
 }
 `
 
+const transaction_create_user = `
+import Flower from 0xFlower
+
+transaction(name: String, userBio: String, email: String ) {
+  prepare(account: AuthAccount){
+    Flower.createUser(userAddress: account.address, name: name, userBio: userBio, email: email)
+  }
+
+  execute {
+    log("User created successfully")
+  }
+}
+`
+
 const transaction_update_user = `
 import Flower from 0xFlower
 
@@ -26,4 +40,4 @@ transaction(name: String, email: String, userBio: String) {
 }
 `
 
-export { transaction_create_post, transaction_update_user }
+export { transaction_create_post, transaction_update_user, transaction_create_user }

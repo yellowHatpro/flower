@@ -2,13 +2,14 @@ import {create} from "zustand";
 import {User} from "@/app/model/user";
 
 const userStore = create<User>((set) => ({
-    addr: {addr: ""} ,
-    name: 'Anonymous',
-    email: 'gladiator@gamezplayer.com',
-    userBio: 'Gladiator @ GamezPlayer',
+    address: {addr: ""} ,
+    name: '',
+    email: '',
+    userBio: '',
     userPosts: [],
     bookmarks: [],
-    likedPosts: [],
 }))
+
+//TODO: Create an error Store
 
 export default userStore

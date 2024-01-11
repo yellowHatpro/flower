@@ -73,8 +73,7 @@ export default function Create() {
           ᐊ
         </div>
     </Link>
-  } logout={logOut}
-          userAcc={user.addr}/>
+  }/>
 
   {
     errorModal &&

@@ -2,7 +2,7 @@ import React from 'react'
 import {BiBookmark} from "react-icons/bi";
 import {FaHandshake} from "react-icons/fa";
 
-const Card = (props: { title: string, desc: string, body: string, user: String, clickHandler: ()=>void }) => {
+const Card = (props: { title: string, desc: string, body: string, user: string, clickHandler: ()=>void }) => {
     return (
         <div className={"flex m-2 flex-col bg-catppuccin_blue0 rounded-md p-2 min-w-fit"} onClick={props.clickHandler}>
             <div>

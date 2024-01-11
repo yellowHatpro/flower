@@ -7,26 +7,27 @@ import userStore from "@/app/store/store";
 import {currentUser} from "@onflow/fcl";
 
 export default function Home() {
-    const [userAddr, setUserAddr] = useState({
-        addr: ''
+    //We get an object, and we only want the addr
+    const [userAddress, setUserAddress] = useState({
+        addr: ""
     })
-
+    const userName = userStore((state) => state.name)
     useEffect(() => {
-        currentUser.subscribe(setUserAddr)
+        currentUser.subscribe(setUserAddress)
     }, []);
 
     useEffect(() => {
         userStore.subscribe(console.log)
-        userStore.setState({addr: userAddr})
-    }, [userAddr])
+        userStore.setState({address: userAddress})
+    }, [userAddress])
 
     return (
         <main>
             {
-                (userAddr.addr) ?
-                    <Main userAddress={userAddr.addr}/>
+                (userAddress.addr) ?
+                    <Main userAddr={userAddress.addr}/>
                     :
-                    <Login/>
+                    <Login />
             }
         </main>)
 }

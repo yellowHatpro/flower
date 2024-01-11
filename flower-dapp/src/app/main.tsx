@@ -2,7 +2,6 @@ import * as React from 'react';
 import {CreatePost, Navbar} from "@/app/components";
 import Image from "next/image";
 import {flower} from "@/assets";
-import {logOut} from "@/app/fcl_components/onflow_fcl";
 import Posts from "@/app/components/posts";
 import {useEffect, useState} from "react";
 import * as fcl from "@onflow/fcl";
@@ -12,15 +11,18 @@ import {LeftMain} from "@/app/left-main";
 import {Post} from "@/app/model/post";
 import {useRouter} from "next/navigation";
 import userStore from "@/app/store/store";
+import {UserForm} from "@/app/user-form";
 
 
 
 export function Main(props: {
-    userAddress: String
+    userAddr: string
 }) {
 
     const [posts, setPosts] = useState<Post[]>([]);
     const [shouldShowCompleteProfileBanner, setShouldShowCompleteProfileBanner] = useState(true)
+    const userName = userStore((state) => state.name)
+
 
     useEffect(() => {
         handleGetAllPosts().then().finally()
@@ -32,7 +34,7 @@ export function Main(props: {
 
     const router = useRouter()
 
-    const addr = props.userAddress
+    const addr = props.userAddr
 
     const handleGetUserDetails = async (): Promise<void> => await fetchUser()
     const handleGetAllPosts = async (): Promise<void> => await fetchAllPosts()
@@ -75,6 +77,12 @@ export function Main(props: {
             }
             getUser()
         }
+    }
+
+    if (userName && userName?.length <= 1) {
+        return (
+            <UserForm/>
+        )
     }
 
     return (

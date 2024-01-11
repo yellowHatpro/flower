@@ -123,10 +123,10 @@ pub contract Flower {
             pub(set) var userPosts : [UInt64] // post id array 
             pub(set) var bookmarks : [UInt64]
             pub(set) var requestsForApproval: [ApprovalRequest]
-            init(name: String, addr: Address ){
+            init(name: String, addr: Address, userBio: String, email: String){
                 self.addr = addr
-                self.email = ""
-                self.userBio = ""
+                self.email = email
+                self.userBio = userBio
                 self.userPosts = []
                 self.bookmarks = []
                 self.requestsForApproval = []
@@ -156,20 +156,20 @@ pub contract Flower {
             self.users[userAddress]!.userPosts.remove(at: postIdx)
         }
 
-        pub fun getPostById(id: UInt64) : Post{
-            return self.posts[id]!
+        pub fun getPostById(id: UInt64) : Post?{
+            return self.posts[id]
         }
 
-        pub fun getUserDetails(userAddress: Address) : User {
-            return self.users[userAddress]!
+        pub fun getUserDetails(userAddress: Address) : User? {
+            return self.users[userAddress]
         }
 
-        pub fun getPost(id: UInt64): Post {
-            return self.posts[id]!
+        pub fun getPost(id: UInt64): Post? {
+            return self.posts[id]
         }
 
-        pub fun createUser(userAddress: Address, name: String) {
-            self.users[userAddress] = User(name: name, addr: userAddress)
+        pub fun createUser(userAddress: Address, name: String, userBio: String, email: String) {
+            self.users[userAddress] = User(name: name, addr: userAddress, userBio: userBio, email: email)
         }
 
         pub fun updateUser(name: String, email: String, userBio: String, userAddress: Address){
