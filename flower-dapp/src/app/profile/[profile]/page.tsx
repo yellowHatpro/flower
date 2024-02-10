@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import * as fcl from "@onflow/fcl";
 import {Navbar} from "@/app/components";
@@ -10,10 +10,11 @@ import {
     script_view_user_posts
 } from "@/app/fcl_components/scripts";
 import Posts from "@/app/components/posts";
-import userStore from "@/app/store/store";
+import userStore from "@/app/store/user-store";
 import "@/config/fclConfig";
 import {Post} from "@/app/model/post";
 import {currentUser} from "@onflow/fcl";
+import errorStore from "@/app/store/error-store";
 
 interface ProfileProps {
   params : {profile : string}
@@ -49,7 +50,6 @@ export default function Profile({ params : { profile } }: ProfileProps) {
                 console.log("User fetch error")
             } else {
                 const getUser = () => {
-                    console.log("what?")
                     userStore.setState(res)
                 }
                 getUser()
@@ -91,7 +91,9 @@ export default function Profile({ params : { profile } }: ProfileProps) {
             }
         )
         if (!res) {
-            console.log("Error")
+            errorStore.setState({
+                errorData: "Something went wrong!"
+            })
         } else {
             const getPosts = () => {
                 setUserPosts(res)
@@ -110,7 +112,7 @@ export default function Profile({ params : { profile } }: ProfileProps) {
             }
         )
         if (!res) {
-            console.log("Error")
+
         } else {
             const getPosts = () => {
                 setUserBookmarks(res)

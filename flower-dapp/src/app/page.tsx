@@ -1,9 +1,9 @@
-"use client";
+'use client'
 
 import React, {useEffect, useState} from "react"
 import Login from "./login"
 import {Main} from "@/app/main";
-import userStore from "@/app/store/store";
+import userStore from "@/app/store/user-store";
 import {currentUser} from "@onflow/fcl";
 import * as fcl from "@onflow/fcl";
 import {script_get_user_details} from "@/app/fcl_components/scripts";
@@ -33,7 +33,6 @@ export default function Home() {
                 console.log("User fetch error")
             } else {
                 const getUser = () => {
-                    console.log("what?")
                     userStore.setState(res)
                 }
                 getUser()

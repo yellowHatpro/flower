@@ -4,7 +4,7 @@ import Image from "next/image";
 import {flower} from "@/assets";
 import {LeftMain} from "@/app/left-main";
 import Posts from "@/app/components/posts";
-import userStore from "@/app/store/store";
+import userStore from "@/app/store/user-store";
 import {CompleteYourProfileBanner} from "@/app/components/complete_your_profile_banner";
 import * as React from "react";
 import {useEffect, useState} from "react";

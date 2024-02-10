@@ -1,7 +1,9 @@
+'use client'
+
 import * as React from 'react';
 import {useState} from "react";
 import * as fcl from "@onflow/fcl";
-import userStore from "@/app/store/store";
+import userStore from "@/app/store/user-store";
 import {useRouter} from "next/navigation";
 import {transaction_create_user} from "@/app/fcl_components/transactions";
 import Modal from "@/app/components/modal";

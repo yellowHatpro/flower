@@ -1,6 +1,4 @@
-import {Post} from "@/app/model/post";
-
-export interface User {
+export type User = {
     address?: Address
     role?: Role
     name?: string

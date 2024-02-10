@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import userStore from "@/app/store/store";
+import userStore from "@/app/store/user-store";
 import {logOut} from "@/app/fcl_components/onflow_fcl";
 import {useRouter} from "next/navigation";
 

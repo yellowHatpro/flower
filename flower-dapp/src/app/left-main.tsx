@@ -1,5 +1,5 @@
 import * as React from 'react';
-import userStore from "@/app/store/store";
+import userStore from "@/app/store/user-store";
 
 export function LeftMain() {
     const userName = userStore((state) => state.name)
